@@ -1,0 +1,47 @@
+{% extends('base.html.twig') %}
+
+
+
+
+{% block body %}
+
+    <div class="col-6 ml-5">
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <h1>List of all addresses</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr class="font-weight-bold">
+                    <td>ID</td>
+                    <td>E-mail</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for address in addresses %}
+                    <tr>
+                        <td>
+                            {{ address.id }}
+                        </td>
+                        <td>
+                            <a href=" {{ path( 'addresses.show', {id: address.id} ) }}">
+                                {{ address.email }}
+                            </a>
+                        </td>
+                        <td>
+                            <a class="text-danger" href="{{ path('addresses.delete', {id: address.id}) }}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary" href="{{ path('addresses.create') }}">Generate E-mail</a>
+    </div>
+
+{% endblock %}
